@@ -1,38 +1,34 @@
-class Pila:
-    __tope = 0
-    __cant = 0
-    __item = None
+import numpy as np
 
-    def __init__(self, cant = 0):
-        self.__tope = 0
+class Pila:
+    __cant = 0 
+    __tope = -1
+
+    def __init__(self, cant):
+        self.__item = np.empty(cant, dtype = int)
+        self.__tope = -1
         self.__cant = cant
-        self.__item = []
 
     def vacio(self):
-        return (self.__tope == 0)
-
-    def llena(self):
-        return self.__tope == self.__cant
+        return (self.__tope == -1)
 
     def insertar(self, x):
-        if (self.__tope < self.__cant):
+        if (self.__tope < self.__cant-1):
             self.__tope += 1
-            self.__item.append(x)
+            self.__item[self.__tope] = x
             return x
-        else: return 0
+        else: print("\nLa pila esta llena")
 
     def suprimir (self):
         if (self.vacio()):
             print("\nLa pila esta vacia")
-            return 0
         else:
+            self.__item = np.delete(self.__item,self.__tope)
             self.__tope -= 1
-            x = self.__item.pop(self.__tope)
-            return x
 
     def mostrar (self):
         if not (self.vacio()):
-            i = self.__tope-1
+            i = self.__tope
             while (i >= 0):
                 print(self.__item[i])
                 i -= 1
